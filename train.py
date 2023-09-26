@@ -26,7 +26,7 @@ def main():
     parser.add_argument('--batch_size', type=int, help='Number of batch size during each epoch')
     parser.add_argument('--num_workers', type=int, help='Number of CPU workers')
     parser.add_argument('--lr', type=float, help='The learning rate for the model')
-    parser.add_argument('--wd', type=float, help='The weight decay for the model')
+    parser.add_argument('--device', type=str, help='Accelerator device CPU or GPU')
 
     parser.add_argument("--verbose", action="store_true", help="Enable verbose mode.")
 
@@ -42,6 +42,7 @@ def main():
     batch_size = args.batch_size
     num_workers = args.num_workers
     lr = args.lr
+    device = args.device
 
 
     verbose = args.verbose
@@ -75,7 +76,7 @@ def main():
 
     # Trainer
     trainer = pl.Trainer(callbacks=[accuracy_log, earlystopping],
-                         max_epochs=10, accelerator='cpu',devices='auto',precision='16')
+                         max_epochs=10, accelerator=device, devices='auto',precision='16')
     
     trainer.fit(model, datamodule=video_dataset)
     trainer.test(model, datamodule=video_dataset)
