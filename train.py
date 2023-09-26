@@ -1,6 +1,7 @@
 from dataset import LabeledVideoDataModule
 from data_pre_processing import Pre_Process
 from model import ClassificationModel, AccuracyCallback
+import sys
 
 
 import argparse
@@ -81,6 +82,8 @@ def main():
     trainer.fit(model, datamodule=video_dataset)
     trainer.test(model, datamodule=video_dataset)
 
+    print("Script execution completed.")
+    sys.exit()
 
 if __name__ == '__main__':
     main()

@@ -57,14 +57,14 @@ class LabeledVideoDataModule(pl.LightningDataModule):
             ApplyTransformToKey(
                 key='video',
                 transform=Compose([
-                    UniformTemporalSubsample(16),
+                    UniformTemporalSubsample(20),
                     Lambda(lambda x: x / 255.0),
                     Normalize((0.45, 0.45, 0.45), (0.225, 0.225, 0.225)),
                     RandomShortSideScale(min_size=256, max_size=320),
                     RandomCrop(244),
-                    RandomRotation((-60, 40)),
+                    RandomRotation((-90, 80)),
                     RandomHorizontalFlip(p=0.9),
-                    RandomPosterize(bits=2),
+                    #RandomPosterize(bits=2),
                 ])
             ),
         ])
@@ -73,7 +73,7 @@ class LabeledVideoDataModule(pl.LightningDataModule):
             ApplyTransformToKey(
                 key='video',
                 transform=Compose([
-                    UniformTemporalSubsample(16),
+                    UniformTemporalSubsample(20),
                     Lambda(lambda x: x / 255.0),
                     Normalize((0.45, 0.45, 0.45), (0.225, 0.225, 0.225)),
                     ShortSideScale(256),
