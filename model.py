@@ -79,9 +79,9 @@ class ClassificationModel(pl.LightningModule):
         #optimizer = torch.optim.SGD(self.parameters(), lr=self.hparams.lr, momentum=0.9, weight_decay=0.001)
         #optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr)
         optimizer = torch.optim.ASGD(
-            self.parameters(), lr=self.hparams.lr, weight_decay= 0.001)
+            self.parameters(), lr=self.hparams.lr, weight_decay= 0.0001)
         scheduler = torch.optim.lr_scheduler.StepLR(
-            optimizer, step_size=5, gamma=0.1, verbose=True)
+            optimizer, step_size=10, gamma=0.1, verbose=True)
         # return [optimizer], [scheduler]
         return [optimizer], [{'scheduler': scheduler, 'interval': 'epoch'}]
     
@@ -107,8 +107,6 @@ class AccuracyCallback(Callback):
         self.train_accuracies.append(train_acc.item())
         self.train_losses.append(train_loss.item())
 
-        #print(f"Train Accuracies: {self.train_accuracies}")
-        #print(f"Train Accuracies Length: {len(self.train_accuracies)}")
 
     def on_validation_epoch_end(self, trainer, pl_module):
         # Collect the validation accuracy from the trainer
@@ -117,8 +115,6 @@ class AccuracyCallback(Callback):
         self.val_accuracies.append(val_acc.item())
         self.val_losses.append(val_loss.item())
 
-        #print(f"Validation Accuracies: {self.val_accuracies}")
-        #print(f"Validation Accuracies Length: {len(self.val_accuracies)}")
 
     def on_train_end(self, trainer, pl_module):
 
@@ -140,6 +136,7 @@ class AccuracyCallback(Callback):
         plt.ylabel('Accuracy')
         plt.title('Train and Validation Accuracies')
         plt.legend()
+        plt.savefig('home/ec22362/projects/accuracy_plot.png')
 
         plt.figure(figsize=(10, 6))
         plt.plot(range(1, epochs + 1), self.train_losses, label='Train Loss')
@@ -150,7 +147,7 @@ class AccuracyCallback(Callback):
         plt.title('Train and Validation Loss')
         plt.legend()
         plt.show()
-        plt.savefig('home/ec22362/projects/projects/loss_plot.png')
+        plt.savefig('home/ec22362/projects/loss_plot.png')
         
         #Retriving the model performance data for later analysis
         training_metrics = {'train_accuracies': self.train_accuracies,
