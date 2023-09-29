@@ -135,7 +135,7 @@ class AccuracyCallback(Callback):
         plt.ylabel('Accuracy')
         plt.title('Train and Validation Accuracies')
         plt.legend()
-        plt.savefig('home/ec22362/projects/accuracy_plot.png')
+        plt.savefig('/home/ec22362/projects/accuracy_plot.png')
 
         plt.figure(figsize=(10, 6))
         plt.plot(range(1, epochs + 1), self.train_losses, label='Train Loss')
@@ -146,7 +146,7 @@ class AccuracyCallback(Callback):
         plt.title('Train and Validation Loss')
         plt.legend()
         plt.show()
-        plt.savefig('home/ec22362/projects/loss_plot.png')
+        plt.savefig('/home/ec22362/projects/loss_plot.png')
         
         #Retriving the model performance data for later analysis
         training_metrics = {'train_accuracies': self.train_accuracies,
