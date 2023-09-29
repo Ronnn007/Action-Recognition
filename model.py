@@ -4,6 +4,7 @@ import torch.nn.functional as F
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import Callback
 import matplotlib.pyplot as plt
+import pickle
 #from pytorchvideo.models import create_res_basic_head
 
 
@@ -151,4 +152,12 @@ class AccuracyCallback(Callback):
         plt.show()
         plt.savefig('home/ec22362/projects/projects/loss_plot.png')
         
+        #Retriving the model performance data for later analysis
+        training_metrics = {'train_accuracies': self.train_accuracies,
+                             'val_accuracies': self.val_accuracies,
+                             'train_losses': self.train_losses,
+                             'val_losses': self.val_losses}
+        
+        with open('training_metrics.pkl', 'wb') as f:
+            pickle.dump(training_metrics, f)
 
