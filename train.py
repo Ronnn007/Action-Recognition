@@ -7,6 +7,8 @@ import argparse
 import pytorch_lightning as pl
 from pytorchvideo.data.labeled_video_paths import LabeledVideoPaths
 from pytorch_lightning.callbacks import early_stopping
+import sys
+import time
 
 
 import os
@@ -78,9 +80,18 @@ def main():
     trainer = pl.Trainer(callbacks=[accuracy_log, earlystopping],
                          max_epochs=10, accelerator=device, devices='auto',precision='16')
     
+    start_time = time.time()
+
     trainer.fit(model, datamodule=video_dataset)
     trainer.test(model, datamodule=video_dataset)
+    
+    end_time = time.time()
+    training_time = end_time - start_time
 
+
+    print(f"Training duration: {training_time: .2f} seconds")
+    print("Script execution completed.")
+    sys.exit()
 
 if __name__ == '__main__':
     main()

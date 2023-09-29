@@ -149,5 +149,6 @@ class AccuracyCallback(Callback):
         plt.title('Train and Validation Loss')
         plt.legend()
         plt.show()
-
+        plt.savefig('home/ec22362/projects/projects/loss_plot.png')
+        
 
