@@ -9,6 +9,7 @@ from pytorchvideo.data.labeled_video_paths import LabeledVideoPaths
 from pytorch_lightning.callbacks import early_stopping
 import sys
 import time
+import random
 
 
 import os
@@ -54,7 +55,8 @@ def main():
     if not os.path.isfile(train_list) or not os.path.isfile(test_list):
         raise ValueError("One or both of the specified train and test files do not exist.")
     
-
+    line = "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+    print(line, '\n')
     #Preprocessing the Paths for dataset
     data_processor = Pre_Process(root_dir=root, train_file=train_list, test_file=test_list, classes=classes)
     train_paths, val_paths, test_paths  = data_processor.extract_video_paths()
@@ -65,11 +67,18 @@ def main():
         test_paths=LabeledVideoPaths(test_paths),
         frames=frames,batch_size=batch_size,num_workers=num_workers)
     
-    print(video_dataset.train_paths.__getitem__(100))
     
+    print(line,'\n')
+    
+    num_train_paths = len(video_dataset.train_paths)
+    random_index = random.randint(0, num_train_paths - 1)
+    random_train_path = video_dataset.train_paths[random_index]
 
+    print(random_train_path)
     
-    model = ClassificationModel(num_classes=num_classes,lr=lr)
+    print(line, '\n')
+
+    model = ClassificationModel(num_classes=num_classes, lr=lr)
 
 
     # Callbacks
@@ -82,7 +91,11 @@ def main():
     
     start_time = time.time()
 
+    print("Training Begin \n")
+
     trainer.fit(model, datamodule=video_dataset)
+    print(line, '\n')
+    print("Testing Begin \n")
     trainer.test(model, datamodule=video_dataset)
     
     end_time = time.time()
@@ -91,6 +104,8 @@ def main():
 
     print(f"Training duration: {training_time: .2f} seconds")
     print("Script execution completed.")
+    print("Training Finished Progressed saved! \n")
+    print(line, '\n')
     sys.exit()
 
 if __name__ == '__main__':
