@@ -14,7 +14,6 @@ class ClassificationModel(pl.LightningModule):
         X3DM model is used (pre-trained on kinetics 400 dataset)
         Optimizer & learning rate schedular are defined.
         Test step is also used for testing after training is completed on unseen data.
-
     '''
 
     def __init__(self, num_classes, lr, **kwargs):
