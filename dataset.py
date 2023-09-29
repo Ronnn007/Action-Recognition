@@ -12,6 +12,7 @@ from pytorchvideo.transforms import (
     RandomShortSideScale,
     ShortSideScale,
     UniformTemporalSubsample,
+    
 )
 
 from torch.utils.data import Dataset, DataLoader
@@ -21,9 +22,9 @@ from torchvision.transforms import (
     Lambda,
     RandomCrop,
     RandomRotation,
-    RandomAffine,
+    GaussianBlur,
     RandomHorizontalFlip,
-    RandomPosterize,
+    ColorJitter,
 )
 
 class LimitDataset(Dataset):
@@ -62,9 +63,10 @@ class LabeledVideoDataModule(pl.LightningDataModule):
                     Normalize((0.45, 0.45, 0.45), (0.225, 0.225, 0.225)),
                     RandomShortSideScale(min_size=256, max_size=320),
                     RandomCrop(244),
-                    RandomRotation((-60, 40)),
+                    RandomRotation((-90, 40)),
                     RandomHorizontalFlip(p=0.9),
-                    RandomPosterize(bits=2),
+                    GaussianBlur(kernel_size=3, sigma=1.5),
+                    ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2),
                 ])
             ),
         ])

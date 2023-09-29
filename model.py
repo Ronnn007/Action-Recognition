@@ -41,9 +41,9 @@ class ClassificationModel(pl.LightningModule):
         acc = (preds == labels).sum().item() / len(labels)
 
         self.log("T_loss", loss, on_step=True,
-                 on_epoch=True, prog_bar=True, logger=True)
+                 on_epoch=True, prog_bar=True, logger=True, batch_size=batch_idx)
         self.log("T_Acc", acc, on_step=False,
-                 on_epoch=True, prog_bar=True, logger=True)
+                 on_epoch=True, prog_bar=True, logger=True, batch_size=batch_idx)
 
         return loss
 
@@ -56,9 +56,9 @@ class ClassificationModel(pl.LightningModule):
         acc = (preds == labels).sum().item() / len(labels)
 
         self.log("V_loss", loss, on_step=True,
-                 on_epoch=True, prog_bar=True, logger=True)
+                 on_epoch=True, prog_bar=True, logger=True, batch_size=batch_idx)
         self.log("V_Acc", acc, on_step=False,
-                 on_epoch=True, prog_bar=True, logger=True)
+                 on_epoch=True, prog_bar=True, logger=True, batch_size=batch_idx)
 
         return loss
 
