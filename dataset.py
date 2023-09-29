@@ -63,10 +63,10 @@ class LabeledVideoDataModule(pl.LightningDataModule):
                     Normalize((0.45, 0.45, 0.45), (0.225, 0.225, 0.225)),
                     RandomShortSideScale(min_size=256, max_size=320),
                     RandomCrop(244),
-                    RandomRotation((-90, 40)),
+                    RandomRotation((-180, 60)),
                     RandomHorizontalFlip(p=0.9),
-                    GaussianBlur(kernel_size=3, sigma=1.5),
-                    ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2),
+                    GaussianBlur(kernel_size=3, sigma=2.5),
+                    
                 ])
             ),
         ])
