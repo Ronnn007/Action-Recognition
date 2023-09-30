@@ -29,6 +29,7 @@ def main():
     parser.add_argument('--batch_size', type=int, help='Number of batch size during each epoch')
     parser.add_argument('--num_workers', type=int, help='Number of CPU workers')
     parser.add_argument('--lr', type=float, help='The learning rate for the model')
+    parser.add_argument('--data_output_file', type=str, help='File name for saving the performance data')
     parser.add_argument('--device', type=str, help='Accelerator device CPU or GPU')
 
     parser.add_argument("--verbose", action="store_true", help="Enable verbose mode.")
@@ -45,6 +46,7 @@ def main():
     batch_size = args.batch_size
     num_workers = args.num_workers
     lr = args.lr
+    save_training_data = args.data_output_file
     device = args.device
 
 
@@ -82,7 +84,7 @@ def main():
 
 
     # Callbacks
-    accuracy_log = AccuracyCallback()
+    accuracy_log = AccuracyCallback(save_training_data)
     earlystopping = early_stopping.EarlyStopping(monitor='V_Acc', patience=5, mode='max', verbose=True)
 
     # Trainer
@@ -100,9 +102,9 @@ def main():
     
     end_time = time.time()
     training_time = end_time - start_time
+    training_time = training_time / 60
 
-
-    print(f"Training duration: {training_time: .2f} seconds")
+    print(f"Training duration: {training_time: .2f} minutes")
     print("Script execution completed.")
     print("Training Finished Progressed saved! \n")
     print(line, '\n')

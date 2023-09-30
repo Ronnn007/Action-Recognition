@@ -92,12 +92,13 @@ class AccuracyCallback(Callback):
         and enables 3rd party library such as matplotlib graph creations
     '''
 
-    def __init__(self):
+    def __init__(self,save_file_as):
         super().__init__()
         self.train_accuracies = []
         self.val_accuracies = []
         self.train_losses = []
         self.val_losses = []
+        self.save_file_as = save_file_as
 
     def on_train_epoch_end(self, trainer, pl_module):
         # Collect the training accuracy from the trainer
@@ -154,6 +155,6 @@ class AccuracyCallback(Callback):
                              'train_losses': self.train_losses,
                              'val_losses': self.val_losses}
         
-        with open('training_metrics.pkl', 'wb') as f:
+        with open(self.save_file_as, 'wb') as f:
             pickle.dump(training_metrics, f)
 
