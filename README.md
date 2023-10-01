@@ -8,6 +8,7 @@
 ## Data Exploration 
 * Firstly here is how the dataset splits are accross all of the different exprimentations
 ![](https://github.com/Ronnn007/Action-Recognition/blob/main/Graph/Data%20exploration.png)
+
 * Secondly here are some of the examples of the frames used for training. 3 classes are selected:
   * Soccer Penalty ![](https://github.com/Ronnn007/Action-Recognition/blob/main/Graph/penalty%20frames.jpg)
   * Bowling ![](https://github.com/Ronnn007/Action-Recognition/blob/main/Graph/Bowling%20frames.jpg)
