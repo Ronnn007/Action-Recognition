@@ -32,11 +32,14 @@ class Pre_Process():
                 if self.classes and labels not in self.classes:
                     continue
                 val_paths.append((os.path.join(self.root_dir,'UCF-101',paths),self.classes.index(labels)))
-        
-        label2id = {class_label: class_id for class_label, class_id in enumerate(self.classes)}
+    
+        classes_in_test_set = set()
+        while len(classes_in_test_set) < len(self.classes):
+            split_ratio = 0.97
+            train_paths, test_paths = train_test_split(train_paths, train_size=split_ratio)
 
-        split_ratio = 0.97
-        train_paths, test_paths = train_test_split(train_paths, train_size=split_ratio)
+            for _, label in test_paths:
+                classes_in_test_set.add(label)
 
         for video_path, label in train_paths:
             if not os.path.exists(video_path):
