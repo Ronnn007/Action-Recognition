@@ -69,14 +69,14 @@ def main():
         test_paths=LabeledVideoPaths(test_paths),
         frames=frames,batch_size=batch_size,num_workers=num_workers)
     
-    
+    print('\n')
     print(line,'\n')
     
     num_train_paths = len(video_dataset.train_paths)
     random_index = random.randint(0, num_train_paths - 1)
     random_train_path = video_dataset.train_paths[random_index]
 
-    print(random_train_path)
+    print(random_train_path,'\n')
     
     print(line, '\n')
 
@@ -98,7 +98,7 @@ def main():
     trainer.fit(model, datamodule=video_dataset)
     print(line, '\n')
     print("Testing Begin \n")
-    trainer.test(model, datamodule=video_dataset)
+    trainer.test(model, dataloaders=video_dataset.test_dataloader(),verbose=True)
     
     end_time = time.time()
     training_time = end_time - start_time
