@@ -88,7 +88,7 @@ def main():
 
     # Trainer
     trainer = pl.Trainer(callbacks=[accuracy_log, earlystopping],
-                         max_epochs=20, accelerator=device, devices='auto',precision='16')
+                         max_epochs=5, accelerator=device, devices='auto',precision='16')
     
     start_time = time.time()
 
