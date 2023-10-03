@@ -63,6 +63,9 @@ def main():
     data_processor = Pre_Process(root_dir=root, train_file=train_list, test_file=test_list, classes=classes)
     train_paths, val_paths, test_paths  = data_processor.extract_video_paths()
 
+    for paths, label in enumerate(test_paths):
+        print('PATHS', paths, 'lABEL', label)
+     
     video_dataset = LabeledVideoDataModule(
         train_paths=LabeledVideoPaths(train_paths),
         val_paths=LabeledVideoPaths(val_paths),
@@ -107,7 +110,7 @@ def main():
     print("Script execution completed.")
     print("Training Finished Progressed saved! \n")
     print(line, '\n')
-    sys.exit()
+    #sys.exit()
 
 if __name__ == '__main__':
     main()
