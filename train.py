@@ -91,7 +91,7 @@ def main():
 
     # Trainer
     trainer = pl.Trainer(callbacks=[accuracy_log, earlystopping],
-                         max_epochs=5, accelerator=device, devices='auto',precision='16')
+                         max_epochs=20, accelerator=device, devices='auto',precision='16')
     
     start_time = time.time()
 
@@ -101,7 +101,7 @@ def main():
     print(line, '\n')
     print("Testing Begin \n")
     trainer.test(model, datamodule=video_dataset,verbose=True)
-    
+    print(line, '\n')
     end_time = time.time()
     training_time = end_time - start_time
     training_time = training_time / 60
@@ -110,7 +110,7 @@ def main():
     print("Script execution completed.")
     print("Training Finished Progressed saved! \n")
     print(line, '\n')
-    #sys.exit()
+    sys.exit()
 
 if __name__ == '__main__':
     main()
