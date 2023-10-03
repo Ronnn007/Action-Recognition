@@ -97,7 +97,7 @@ def main():
     trainer.fit(model, datamodule=video_dataset)
     print(line, '\n')
     print("Testing Begin \n")
-    trainer.test(model, datamodule=video_dataset.test_dataloader,verbose=True)
+    trainer.test(model, datamodule=video_dataset(),verbose=True)
     
     end_time = time.time()
     training_time = end_time - start_time
