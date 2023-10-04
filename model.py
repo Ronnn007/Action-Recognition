@@ -73,6 +73,7 @@ class ClassificationModel(pl.LightningModule):
         self.log_dict(metrics)
         print(batch_idx)
         print(metrics)
+        print('hello')
         return metrics
 
     def configure_optimizers(self):

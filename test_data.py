@@ -37,4 +37,4 @@ model = ClassificationModel.load_from_checkpoint('projects/models/epoch=9-step=5
 test_dataloader = video_dataset.test_dataloader()
 
 trainer = pl.Trainer(accelerator='gpu',devices='auto',precision='16')
-trainer.test(model=model, dataloaders=test_dataloader)
+trainer.test(model=model, dataloaders=video_dataset, verbose=True)
