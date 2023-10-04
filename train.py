@@ -92,7 +92,7 @@ def main():
     accuracy_log = AccuracyCallback(save_training_data)
     earlystopping = early_stopping.EarlyStopping(monitor='V_Acc', patience=5, mode='max', verbose=True)
 
-    model_checkpoint = ModelCheckpoint(dirpath='/projects/models/',
+    model_checkpoint = ModelCheckpoint(dirpath='projects/models/',
                                        filename="{epoch}-{step}-{V_Acc:.2f}",
                                        monitor='V_Acc', mode='max', save_top_k=1, every_n_epochs=5)
     # Trainer
