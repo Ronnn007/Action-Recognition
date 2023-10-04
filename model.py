@@ -71,6 +71,7 @@ class ClassificationModel(pl.LightningModule):
 
         metrics = {"Test accuracy": acc, "Test_loss": loss}
         self.log_dict(metrics)
+        print(batch_idx)
         print(metrics)
         return metrics
 
