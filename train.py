@@ -7,6 +7,7 @@ import argparse
 import pytorch_lightning as pl
 from pytorchvideo.data.labeled_video_paths import LabeledVideoPaths
 from pytorch_lightning.callbacks import early_stopping
+from pytorch_lightning.loggers import TensorBoardLogger
 import sys
 import time
 import random
@@ -59,6 +60,8 @@ def main():
     
     line = "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
     print(line, '\n')
+
+    logger = TensorBoardLogger('logs', name='X3D-M')
     #Preprocessing the Paths for dataset
     data_processor = Pre_Process(root_dir=root, train_file=train_list, test_file=test_list, classes=classes)
     train_paths, val_paths, test_paths  = data_processor.extract_video_paths()
@@ -91,7 +94,7 @@ def main():
 
     # Trainer
     trainer = pl.Trainer(callbacks=[accuracy_log, earlystopping],
-                         max_epochs=20, accelerator=device, devices='auto',precision='16')
+                         max_epochs=20, accelerator=device, devices='auto',precision='16',logger=logger)
     
     start_time = time.time()
 
@@ -99,9 +102,13 @@ def main():
 
     trainer.fit(model, datamodule=video_dataset)
     print(line, '\n')
+
     print("Testing Begin \n")
-    trainer.test(model, datamodule=video_dataset,verbose=True)
+
+    trainer.test(model, datamodule=video_dataset)
     print(line, '\n')
+
+
     end_time = time.time()
     training_time = end_time - start_time
     training_time = training_time / 60
