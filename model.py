@@ -71,7 +71,7 @@ class ClassificationModel(pl.LightningModule):
 
         metrics = {"Test accuracy": acc, "Test_loss": loss}
         self.log_dict(metrics)
-
+        print(metrics)
         return metrics
 
     def configure_optimizers(self):
