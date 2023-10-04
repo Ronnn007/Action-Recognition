@@ -9,13 +9,13 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 classes = ['BlowDryHair', 'Bowling', 'PlayingFlute', 'SoccerPenalty', 'TrampolineJumping']
 
-root_relative_path = 'ActionRecognition/UCF101/ucfTrainTestlist/trainlist02.txt'
+root_relative_path = '~/ActionRecognition/UCF101/ucfTrainTestlist/trainlist02.txt'
 root = os.path.abspath(root_relative_path)
 
-train_relative_path = 'ActionRecognition/UCF101/ucfTrainTestlist/trainlist02.txt'
+train_relative_path = '~/ActionRecognition/UCF101/ucfTrainTestlist/trainlist02.txt'
 train_p = os.path.abspath(train_relative_path)
 
-test_relative_path = 'ActionRecognition/UCF101/ucfTrainTestlist/testlist02.txt'
+test_relative_path = '~/ActionRecognition/UCF101/ucfTrainTestlist/testlist02.txt'
 test_p = os.path.abspath(test_relative_path)
 
 print(root)
