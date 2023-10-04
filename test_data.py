@@ -33,7 +33,7 @@ video_dataset = LabeledVideoDataModule(
     test_paths=LabeledVideoPaths(test_paths),
     frames=8, batch_size=8, num_workers=6)
 
-model = ClassificationModel.load_from_checkpoint('projects/models/epoch=9-step=590-V_Acc=1.00.ckpt')
+model = ClassificationModel.load_from_checkpoint('projects/models/epoch=9-step=590-V_Acc=1.00.ckpt',num_classes=len(classes),lr=0.001)
 test_dataloader = video_dataset.test_dataloader()
 
 trainer = pl.Trainer(accelerator='gpu',devices='auto',precision='16')
