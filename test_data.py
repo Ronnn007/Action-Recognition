@@ -9,7 +9,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 classes = ['BlowDryHair', 'Bowling', 'PlayingFlute', 'SoccerPenalty', 'TrampolineJumping']
 data_processor = Pre_Process(
-    root_dir='//ActionRecognition/UCF101', train_file='//ActionRecognition/UCF101/ucfTrainTestlist/trainlist02.txt', test_file='//ActionRecognition/UCF101/ucfTrainTestlist/testlist02.txt',
+    root_dir='ActionRecognition/UCF101', train_file='ActionRecognition/UCF101/ucfTrainTestlist/trainlist02.txt', test_file='ActionRecognition/UCF101/ucfTrainTestlist/testlist02.txt',
       classes=classes)
 train_paths, val_paths, test_paths = data_processor.extract_video_paths()
 
