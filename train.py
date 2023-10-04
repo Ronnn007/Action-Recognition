@@ -6,7 +6,7 @@ from model import ClassificationModel, AccuracyCallback
 import argparse
 import pytorch_lightning as pl
 from pytorchvideo.data.labeled_video_paths import LabeledVideoPaths
-from pytorch_lightning.callbacks import early_stopping
+from pytorch_lightning.callbacks import early_stopping, ModelCheckpoint
 from pytorch_lightning.loggers import TensorBoardLogger
 import sys
 import time
@@ -67,7 +67,7 @@ def main():
     train_paths, val_paths, test_paths  = data_processor.extract_video_paths()
 
     for paths, label in enumerate(test_paths):
-        print('PATHS', paths, 'lABEL', label)
+        print(paths, label)
      
     video_dataset = LabeledVideoDataModule(
         train_paths=LabeledVideoPaths(train_paths),
@@ -92,9 +92,12 @@ def main():
     accuracy_log = AccuracyCallback(save_training_data)
     earlystopping = early_stopping.EarlyStopping(monitor='V_Acc', patience=5, mode='max', verbose=True)
 
+    model_checkpoint = ModelCheckpoint(dirpath='/projects/models/',
+                                       filename="{epoch}-{step}-{V_Acc:.2f}",
+                                       monitor='V_Acc', mode='max', save_top_k=1, every_n_epochs=5)
     # Trainer
-    trainer = pl.Trainer(callbacks=[accuracy_log, earlystopping],
-                         max_epochs=20, accelerator=device, devices='auto',precision='16',logger=logger)
+    trainer = pl.Trainer(callbacks=[accuracy_log, earlystopping, model_checkpoint],
+                         max_epochs=10, accelerator=device, devices='auto',precision='16',logger=logger)
     
     start_time = time.time()
 
@@ -103,10 +106,10 @@ def main():
     trainer.fit(model, datamodule=video_dataset)
     print(line, '\n')
 
-    print("Testing Begin \n")
+    #print("Testing Begin \n")
 
-    trainer.test(model, datamodule=video_dataset)
-    print(line, '\n')
+    #trainer.test(model, datamodule=video_dataset)
+    #print(line, '\n')
 
 
     end_time = time.time()
