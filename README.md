@@ -42,5 +42,4 @@ Unilatral Training parameters accross each expriments For X3D M were:
 * Learning Rate: 1e-2
   
 ### Results
-Talk a bit about the expriments and its enviroments, transformations- additional details
-follow this layout for (slowfast model)
+(Waiting to upload)
